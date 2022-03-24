@@ -91,14 +91,14 @@ class WeatherTest: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.openweathermap.org")
         XCTAssertEqual(urlComponents?.path, "/data/2.5/weather")
-        XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "nantes,fr"))
+        XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "paris,fr"))
         XCTAssertEqual(urlComponents?.queryItems?[1], URLQueryItem(name: "mode", value: "json"))
         XCTAssertEqual(urlComponents?.queryItems?[2], URLQueryItem(name: "lang", value: "fr"))
         XCTAssertEqual(urlComponents?.queryItems?[3], URLQueryItem(name: "units", value: "metric"))
         XCTAssertEqual(urlComponents?.queryItems?[4], URLQueryItem(name: "APPID", value: apiKeyMock))
     }
     
-    func testIndexZeroRequestsNantesWeatherInfo() {
+    func testIndexZeroRequestsParisWeatherInfo() {
         // Given
         let index = 0
         
@@ -124,7 +124,7 @@ class WeatherTest: XCTestCase {
         XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "new york,us"))
     }
     
-    func testByDefaultRequestsNantesWeatherInfo() {
+    func testByDefaultRequestsParisWeatherInfo() {
         // Given
         for i in 2...100 {
             
@@ -134,7 +134,7 @@ class WeatherTest: XCTestCase {
             // Then
             let url = requestMock.request?.url?.absoluteString
             let urlComponents = URLComponents(string: url!)
-            XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "nantes,fr"))
+            XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "paris,fr"))
         }
     }
 }

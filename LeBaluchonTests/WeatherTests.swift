@@ -108,7 +108,7 @@ class WeatherTest: XCTestCase {
         // Then
         let url = requestMock.request?.url?.absoluteString
         let urlComponents = URLComponents(string: url!)
-        XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "nantes,fr"))
+        XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "paris,fr"))
     }
     
     func testIndexOneRequestsNewYorkWeatherInfo() {

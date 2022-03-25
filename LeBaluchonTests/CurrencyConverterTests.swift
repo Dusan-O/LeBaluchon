@@ -2,7 +2,7 @@
 //  CurrencyConverterTests.swift
 //  LeBaluchon
 //
-//  Created by Dusan Orescanin on 24/03/2022.
+//  Created by Dusan Orescanin on 22/03/2022.
 //
 
 import XCTest

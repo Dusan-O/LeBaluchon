@@ -1,24 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Der-bh-shq">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Tab Bar Controller-->
+        <scene sceneID="73w-4l-tdF">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tabBarController id="Der-bh-shq" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sie-VD-vcB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" name="Jaune"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBar>
+                    <connections>
+                        <segue destination="cgU-8i-VBw" kind="relationship" relationship="viewControllers" id="26m-1C-kby"/>
+                        <segue destination="gr4-I2-RAD" kind="relationship" relationship="viewControllers" id="oPd-Te-tDy"/>
+                        <segue destination="CQ6-Pd-P8d" kind="relationship" relationship="viewControllers" id="Kuv-dz-fgT"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pcj-6X-Ahj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-986" y="-251"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NPu-jl-MkM">
+            <objects>
+                <navigationController id="gr4-I2-RAD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="WeatherLogo" selectedImage="WeatherLogo" id="Pgp-jH-uBY">
+                        <color key="badgeColor" red="0.22704121469999999" green="0.35996320840000001" blue="0.41569608450000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zsl-cd-uKQ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ExR-Hr-2gE" kind="relationship" relationship="rootViewController" id="gox-ch-Ie0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zm8-os-SGl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-126" y="-251"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ETr-Az-RJr">
+            <objects>
+                <navigationController id="cgU-8i-VBw" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="CurrencyLogo" selectedImage="CurrencyLogo" id="pWl-g7-fxV"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QFM-1a-NLz">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="qcK-BN-y6E" kind="relationship" relationship="rootViewController" id="6O0-b0-yRq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VC6-51-0a8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-125" y="-932"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="K8Z-5M-O1n">
+            <objects>
+                <navigationController id="CQ6-Pd-P8d" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="TranslateLogo" selectedImage="TranslateLogo" id="YXd-Fu-LDh"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bmV-rj-Fmz">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6K5-lg-xXW" kind="relationship" relationship="rootViewController" id="WM1-2b-jBI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AIU-UE-yXo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-126" y="467"/>
+        </scene>
+        <!--Weather-->
+        <scene sceneID="STX-Jk-Jke">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Weather" id="ExR-Hr-2gE" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="fzg-Mv-9fK"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nxw-HB-Ye1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="789.375" y="-251.40845070422534"/>
+        </scene>
+        <!--Currency-->
+        <scene sceneID="yet-rp-exP">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Currency" id="qcK-BN-y6E" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="CIt-1t-wAk"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pWp-uV-yFK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="788" y="-933"/>
+        </scene>
+        <!--Translation-->
+        <scene sceneID="vQc-8r-6TM">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Translation" id="6K5-lg-xXW" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="IJT-FX-ECl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oI3-pL-4MY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="789" y="468"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="CurrencyLogo" width="22" height="24"/>
+        <image name="TranslateLogo" width="29" height="31"/>
+        <image name="WeatherLogo" width="29" height="22"/>
+        <namedColor name="Jaune">
+            <color red="0.78823529411764703" green="0.52156862745098043" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

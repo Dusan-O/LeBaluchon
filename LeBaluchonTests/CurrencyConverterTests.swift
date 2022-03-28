@@ -10,6 +10,8 @@ import XCTest
 
 class CurrencyConverterTests: XCTestCase {
     
+    // MARK: - CURRENCY CONVERTER TESTS
+
     var sut: CurrencyConverter!
     var requestMock: RequestInterfaceMock!
     let apiKeyMock = "1234345"
@@ -19,43 +21,39 @@ class CurrencyConverterTests: XCTestCase {
         sut = CurrencyConverter(session: requestMock, apiKey: apiKeyMock)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
     func testInvalidInputCharacter() {
-        // Given
+        /// Given
         let input = "A"
         let expectation = self.expectation(description: "")
         
-        // When
+        /// When
         sut.convert(from: input) { (result) in
             // Then
             XCTAssertEqual(result, .failure(.invalidInput))
             expectation.fulfill()
             
         }
-        //wait...
+        ///wait...
         waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testInvalidInputDoubleComma() {
-        // Given
+        /// Given
         let input = "2.."
         let expectation = self.expectation(description: "")
         
-        // When
+        /// When
         sut.convert(from: input) { (result) in
             // Then
             XCTAssertEqual(result, .failure(.invalidInput))
             expectation.fulfill()
         }
-        //wait...
+        ///Wait
         waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testPerformCalculationWithExistingData() {
-        // Given
+        /// Given
         let date = Date()
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
@@ -65,9 +63,9 @@ class CurrencyConverterTests: XCTestCase {
         let input = "100,00€"
         let expectation = self.expectation(description: "")
         
-        // When
+        /// When
         sut.convert(from: input) { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .success(200))
             expectation.fulfill()
         }
@@ -75,16 +73,16 @@ class CurrencyConverterTests: XCTestCase {
     }
     
     func testPerformCalculationWithoutExistingData() {
-        // Given
+        /// Given
         sut.latestRateAndDate = nil
         let input = "100,00€"
         let expectation = self.expectation(description: "")
         
         requestMock.response = LatestCurrencyResponse(success: true, timestamp: 0, base: "", date: "", rates: ["USD": 2.0])
         
-        // When
+        /// When
         sut.convert(from: input) { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .success(200))
             expectation.fulfill()
         }
@@ -92,16 +90,16 @@ class CurrencyConverterTests: XCTestCase {
     }
     
     func testInvalidResponseFormat() {
-        // Given
+        /// Given
         sut.latestRateAndDate = nil
         let input = "100,00€"
         let expectation = self.expectation(description: "")
         
         requestMock.data = Data()
         
-        // When
+        /// When
         sut.convert(from: input) { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .failure(.invalidResponseFormat))
             expectation.fulfill()
         }
@@ -109,14 +107,14 @@ class CurrencyConverterTests: XCTestCase {
     }
     
     func testRequestsDataIfTheresNoDataAndInputIsValid() {
-        // Given
+        /// Given
         sut.latestRateAndDate = nil
         let input = "100,00€"
         
-        // When
+        /// When
         sut.convert(from: input) {_ in}
         
-        //Then
+        ///Then
         XCTAssertEqual(self.requestMock.request?.httpMethod, "GET")
         
         let url = requestMock.request?.url?.absoluteString
@@ -131,7 +129,7 @@ class CurrencyConverterTests: XCTestCase {
     }
     
     func testRequestError() {
-        // Given
+        /// Given
         let error = NSError(domain: "", code: 0, userInfo: nil)
         sut.latestRateAndDate = nil
         let input = "100,00€"
@@ -139,9 +137,9 @@ class CurrencyConverterTests: XCTestCase {
         
         requestMock.error = error
         
-        // When
+        /// When
         sut.convert(from: input) { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .failure(.requestError(error)))
             expectation.fulfill()
         }
@@ -149,16 +147,16 @@ class CurrencyConverterTests: XCTestCase {
     }
     
     func testUsdRateNotFound() {
-        // Given
+        /// Given
         sut.latestRateAndDate = nil
         let input = "100,00€"
         let expectation = self.expectation(description: "")
         
         requestMock.response = LatestCurrencyResponse(success: true, timestamp: 0, base: "", date: "", rates: ["": 2.0])
         
-        // When
+        /// When
         sut.convert(from: input) { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .failure(.usdRateNotFound))
             expectation.fulfill()
         }

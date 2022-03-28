@@ -2,13 +2,17 @@
 //  TranslateTests.swift
 //  LeBaluchon
 //
-//  Created by Dusan Orescanin on 22/03/2022.
+//  Created by Dusan Orescanin on 24/03/2022.
 //
 
+import Foundation
 import XCTest
 @testable import LeBaluchon
 
 class TranslateTest: XCTestCase {
+    
+    // MARK: - TRANSLATE TESTS
+
     
     var sut: Translation!
     var requestMock: RequestInterfaceMock!
@@ -19,57 +23,53 @@ class TranslateTest: XCTestCase {
         sut = Translation(session: requestMock, apiKey: apiKeyMock)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
     func testFrenchTranslation() {
-        // Given
+        /// Given
         let input = "Bonjour"
         let expectation = self.expectation(description: "")
         
         let dataResponse = DataResponse(translations: [TranslatedTextResponse(translatedText: "Hello")])
         requestMock.response = LatestTranslationResponse(data: dataResponse)
         
-        // When
+        /// When
         sut.request(from: input, then: { (result) in
             // Then
             XCTAssertEqual(result, .success("Hello"))
             expectation.fulfill()
         })
-        //wait...
+        ///wait...
         waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testSpanishTranslation() {
-        // Given
+        /// Given
         let input = "Hola"
         let expectation = self.expectation(description: "")
         
         let dataResponse = DataResponse(translations: [TranslatedTextResponse(translatedText: "Hi")])
         requestMock.response = LatestTranslationResponse(data: dataResponse)
         
-        // When
+        /// When
         sut.request(from: input, then: { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .success("Hi"))
             expectation.fulfill()
         })
-        //wait...
+        ///wait...
         waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testRequestError() {
-                // Given
+                /// Given
            let error = NSError(domain: "", code: 0, userInfo: nil)
            let input = "Bonjours"
            let expectation = self.expectation(description: "")
            
            requestMock.error = error
            
-           // When
+           /// When
            sut.request(from: input) { (result) in
-               // Then
+               /// Then
                XCTAssertEqual(result, .failure(.requestError(error)))
                expectation.fulfill()
            }
@@ -77,15 +77,15 @@ class TranslateTest: XCTestCase {
        }
        
     func testInvalidResponseFormat() {
-        // Given
+        /// Given
         let input = "Bonjour"
         let expectation = self.expectation(description: "")
         
         requestMock.data = Data()
 
-        // When
+        /// When
         sut.request(from: input) { (result) in
-             // Then
+             /// Then
             XCTAssertEqual(result, .failure(.invalidResponseFormat))
             expectation.fulfill()
         }
@@ -93,33 +93,33 @@ class TranslateTest: XCTestCase {
     }
     
     func testInvalidResponseFormatIfNoTranslationsInArray() {
-        // Given
+        /// Given
         let input = "Hola"
         let expectation = self.expectation(description: "")
         
         let dataResponse = DataResponse(translations: [])
         requestMock.response = LatestTranslationResponse(data: dataResponse)
         
-        // When
+        /// When
         sut.request(from: input, then: { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .failure(.invalidResponseFormat))
             expectation.fulfill()
         })
-        //wait...
+        ///wait...
         waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testRequestsData() {
-        // Given
+        /// Given
         let input = "Bonjour"
         let dataResponse = DataResponse(translations: [TranslatedTextResponse(translatedText: "Hi")])
         
         requestMock.response = LatestTranslationResponse(data: dataResponse)
-        // When
+        /// When
         sut.request(from: input) {_ in}
         
-        //Then
+        ///Then
         XCTAssertEqual(self.requestMock.request?.httpMethod, "POST")
         
         let url = requestMock.request?.url?.absoluteString

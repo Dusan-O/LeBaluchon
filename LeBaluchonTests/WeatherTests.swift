@@ -8,8 +8,11 @@
 import XCTest
 @testable import LeBaluchon
 
+
 class WeatherTest: XCTestCase {
     
+    // MARK: - WEATHER TESTS
+
     var sut: Weather!
     var requestMock: RequestInterfaceMock!
     let apiKeyMock = "1234345"
@@ -19,12 +22,8 @@ class WeatherTest: XCTestCase {
         sut = Weather(session: requestMock, apiKey: apiKeyMock)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
     func testFrenchTranslation() {
-        // Given
+        /// Given
         let expectation = self.expectation(description: "")
         
         let mainResponse = MainResponse(temp: 20, humidity: 10, temp_min: 2, temp_max: 21)
@@ -32,26 +31,26 @@ class WeatherTest: XCTestCase {
         let response = LatestWeatherResponse(main: mainResponse, weather: [descriptionResponse], dt: 122344556)
         requestMock.response = response
         
-        // When
+        /// When
         sut.request(from: 0, then: { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .success(response))
             expectation.fulfill()
         })
-        //wait...
+        /// Wait
         waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testRequestError() {
-        // Given
+        /// Given
         let error = NSError(domain: "", code: 0, userInfo: nil)
         let expectation = self.expectation(description: "")
         
         requestMock.error = error
         
-        // When
+        /// When
         sut.request(from: 0) { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .failure(.requestError(error)))
             expectation.fulfill()
         }
@@ -59,14 +58,14 @@ class WeatherTest: XCTestCase {
     }
     
     func testInvalidResponseFormat() {
-        // Given
+        /// Given
         let expectation = self.expectation(description: "")
         
         requestMock.data = Data()
         
-        // When
+        /// When
         sut.request(from: 0) { (result) in
-            // Then
+            /// Then
             XCTAssertEqual(result, .failure(.invalidResponseFormat))
             expectation.fulfill()
         }
@@ -74,15 +73,15 @@ class WeatherTest: XCTestCase {
     }
     
     func testRequestsData() {
-        // Given
+        /// Given
         let mainResponse = MainResponse(temp: 20, humidity: 10, temp_min: 2, temp_max: 21)
         let descriptionResponse = DescriptionResponse(description: "Pluvieux")
         requestMock.response = LatestWeatherResponse(main: mainResponse, weather: [descriptionResponse], dt: 122344556)
         
-        // When
+        /// When
         sut.request(from: 0) {_ in}
         
-        //Then
+        ///Then
         XCTAssertEqual(self.requestMock.request?.httpMethod, "GET")
         
         let url = requestMock.request?.url?.absoluteString
@@ -99,39 +98,39 @@ class WeatherTest: XCTestCase {
     }
     
     func testIndexZeroRequestsParisWeatherInfo() {
-        // Given
+        /// Given
         let index = 0
         
-        // When
+        /// When
         sut.request(from: index) {_ in}
         
-        // Then
+        /// Then
         let url = requestMock.request?.url?.absoluteString
         let urlComponents = URLComponents(string: url!)
         XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "paris,fr"))
     }
     
     func testIndexOneRequestsNewYorkWeatherInfo() {
-        // Given
+        /// Given
         let index = 1
         
-        // When
+        /// When
         sut.request(from: index) {_ in}
         
-        // Then
+        /// Then
         let url = requestMock.request?.url?.absoluteString
         let urlComponents = URLComponents(string: url!)
         XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "new york,us"))
     }
     
     func testByDefaultRequestsParisWeatherInfo() {
-        // Given
+        /// Given
         for i in 2...100 {
             
-            // When
+            /// When
             sut.request(from: i) {_ in}
             
-            // Then
+            /// Then
             let url = requestMock.request?.url?.absoluteString
             let urlComponents = URLComponents(string: url!)
             XCTAssertEqual(urlComponents?.queryItems?[0], URLQueryItem(name: "q", value: "paris,fr"))
